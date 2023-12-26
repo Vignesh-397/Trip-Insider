@@ -168,7 +168,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               );
             },
             icon: const Icon(
-              Icons.clear_all,
+              Icons.clear,
               color: mobileBackgroundColor,
             )),
         title: const Text(

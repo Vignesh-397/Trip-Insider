@@ -7,6 +7,7 @@ import 'package:tripinsider/providers/user_provider.dart';
 import 'package:tripinsider/resources/firestore_methods.dart';
 import 'package:tripinsider/screens/comment_screen.dart';
 import 'package:tripinsider/screens/info_screen.dart';
+import 'package:tripinsider/screens/profile_screen.dart';
 import 'package:tripinsider/utils/colorsScheme.dart';
 import 'package:tripinsider/utils/utils.dart';
 import 'package:tripinsider/widgets/like_animation.dart';
@@ -129,22 +130,40 @@ class _PostCardState extends State<PostCard> {
             ),
             child: Row(
               children: [
-                CircleAvatar(
-                  radius: 16,
-                  backgroundImage:
-                      NetworkImage(widget.snap['profImage'].toString()),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(uid: user.uid),
+                      ),
+                    );
+                  },
+                  child: CircleAvatar(
+                    radius: 16,
+                    backgroundImage:
+                        NetworkImage(widget.snap['profImage'].toString()),
+                  ),
                 ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.snap['username'],
-                        ),
-                      ],
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ProfileScreen(uid: user.uid),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.snap['username'],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

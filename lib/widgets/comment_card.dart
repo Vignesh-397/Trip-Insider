@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tripinsider/screens/profile_screen.dart';
 import 'package:tripinsider/utils/colorsScheme.dart';
 
 class CommentCard extends StatefulWidget {
@@ -18,9 +19,19 @@ class _CommentCardState extends State<CommentCard> {
       padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 18,
-            backgroundImage: NetworkImage(widget.snap['profilePic'].toString()),
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(uid: widget.snap['uid']),
+                ),
+              );
+            },
+            child: CircleAvatar(
+              radius: 18,
+              backgroundImage:
+                  NetworkImage(widget.snap['profilePic'].toString()),
+            ),
           ),
           Expanded(
             child: Padding(
@@ -40,7 +51,7 @@ class _CommentCardState extends State<CommentCard> {
                         ),
                         TextSpan(
                             text: ' ${widget.snap['text']}',
-                            style: TextStyle(color: Colors.black)),
+                            style: const TextStyle(color: Colors.black)),
                       ],
                     ),
                   ),
