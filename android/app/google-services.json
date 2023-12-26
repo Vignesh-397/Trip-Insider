@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "267353495335",
+    "project_id": "trip-insider",
+    "storage_bucket": "trip-insider.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:267353495335:android:6ad890c4b8200c5687bb02",
+        "android_client_info": {
+          "package_name": "com.example.tripinsider"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdq7MQl4XCT8oOIel9I4l6mB3tmNYcCNE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
