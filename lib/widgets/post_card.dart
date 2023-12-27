@@ -134,14 +134,15 @@ class _PostCardState extends State<PostCard> {
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => ProfileScreen(uid: user.uid),
+                        builder: (context) =>
+                            ProfileScreen(uid: widget.snap['uid']),
                       ),
                     );
                   },
                   child: CircleAvatar(
                     radius: 16,
-                    backgroundImage:
-                        NetworkImage(widget.snap['profImage'].toString()),
+                    backgroundImage: CachedNetworkImageProvider(
+                        widget.snap['profImage'].toString()),
                   ),
                 ),
                 Expanded(
@@ -151,7 +152,8 @@ class _PostCardState extends State<PostCard> {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => ProfileScreen(uid: user.uid),
+                            builder: (context) =>
+                                ProfileScreen(uid: widget.snap['uid']),
                           ),
                         );
                       },

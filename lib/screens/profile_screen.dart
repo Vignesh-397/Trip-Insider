@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -141,14 +142,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      contentPadding: EdgeInsets
-                                          .zero, // Remove default padding
+                                      contentPadding: EdgeInsets.zero,
                                       content: ClipRect(
-                                        child: Image.network(
-                                          userData['imgUrl'],
+                                        child: CachedNetworkImage(
+                                          imageUrl: userData['imgUrl'],
                                           height: 300,
                                           width: 60,
                                           fit: BoxFit.cover,
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(Icons.error),
                                         ),
                                       ),
                                     );
@@ -157,7 +159,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: CircleAvatar(
                               backgroundColor: Colors.grey,
                               radius: 50,
-                              backgroundImage: NetworkImage(userData['imgUrl']),
+                              backgroundImage: CachedNetworkImageProvider(
+                                userData['imgUrl'],
+                              ),
                             ),
                           ),
                           Expanded(
