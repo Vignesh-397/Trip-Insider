@@ -387,8 +387,24 @@ class _AddPostScreenState extends State<AddPostScreen> {
                                 },
                               );
                             } else {
-                              showSnackbar(
-                                  'Please fill in all the fields.', context);
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: const Text('Invalid Inputs'),
+                                    content: const Text(
+                                        'Please fill in all the fields.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
                             }
                           },
                           child: const Text(

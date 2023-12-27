@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tripinsider/resources/auth_methods.dart';
 import 'package:tripinsider/resources/firestore_methods.dart';
 import 'package:tripinsider/screens/login_screen.dart';
+import 'package:tripinsider/screens/saved_posts_screen.dart';
 import 'package:tripinsider/utils/colorsScheme.dart';
 import 'package:tripinsider/utils/utils.dart';
 import 'package:tripinsider/widgets/follow_button.dart';
@@ -26,6 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int followers = 0;
   int following = 0;
   bool isFollowing = false;
+
   @override
   void initState() {
     super.initState();
@@ -90,19 +92,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return isLoading
         ? const Scaffold(
-            backgroundColor: Color.fromARGB(255, 208, 220, 253),
+            backgroundColor: Color.fromRGBO(225, 232, 252, 1),
             body: Center(
               child: CircularProgressIndicator(),
             ),
           )
         : Scaffold(
-            backgroundColor: mobileBackgroundColor,
+            backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
             appBar: AppBar(
-              backgroundColor: mobileBackgroundColor,
+              backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
               title: Text(
                 userData['username'],
                 style: const TextStyle(
-                  color: Color.fromARGB(255, 225, 232, 252),
+                  color: mobileBackgroundColor,
                 ),
               ),
               centerTitle: false,
@@ -111,15 +113,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 FirebaseAuth.instance.currentUser!.uid == widget.uid
                     ? IconButton(
                         onPressed: () {
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) => SavedPostsScreen(),
-                          //   ),
-                          // );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const SavedPostsScreen(),
+                            ),
+                          );
                         },
                         icon: const Icon(
                           Icons.saved_search,
-                          color: Color.fromARGB(255, 225, 232, 252),
+                          color: mobileBackgroundColor,
                         ),
                       )
                     : const Icon(Icons.more_vert),
@@ -144,6 +146,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       content: ClipRect(
                                         child: Image.network(
                                           userData['imgUrl'],
+                                          height: 300,
+                                          width: 60,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -228,7 +232,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         : isFollowing
                                             ? FollowButton(
                                                 text: 'Unfollow',
-                                                backgroundColor: Colors.white,
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 200, 199, 205),
                                                 textColor: Colors.black,
                                                 borderColor: Colors.grey,
                                                 function: () async {
@@ -281,7 +287,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
-                            color: Color.fromARGB(255, 225, 232, 252),
+                            color: mobileBackgroundColor,
                           ),
                         ),
                       ),
@@ -291,7 +297,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Text(
                           userData['bio'],
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 225, 232, 252)),
+                            color: mobileBackgroundColor,
+                          ),
                         ),
                       ),
                     ],
@@ -386,7 +393,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 225, 232, 252),
+            color: mobileBackgroundColor,
           ),
         ),
         Container(
@@ -394,10 +401,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Text(
             label,
             style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              color: Color.fromARGB(255, 225, 232, 252),
-            ),
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+                color: mobileBackgroundColor),
           ),
         )
       ],

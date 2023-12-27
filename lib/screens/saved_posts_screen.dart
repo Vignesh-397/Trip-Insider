@@ -17,13 +17,14 @@ class _SavedPostsScreenState extends State<SavedPostsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
       appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
+        backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
         centerTitle: false,
         title: const Text(
           'Saved posts',
           style: TextStyle(
-            color: Color.fromARGB(255, 208, 220, 253),
+            color: mobileBackgroundColor,
           ),
         ),
       ),

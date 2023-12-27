@@ -110,8 +110,8 @@ class _PostCardState extends State<PostCard> {
         color: const Color.fromRGBO(225, 232, 252, 1),
         gradient: const LinearGradient(
           colors: [
+            mobileBackgroundColor,
             Color.fromRGBO(225, 232, 252, 1),
-            Color.fromRGBO(15, 13, 88, 1),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomLeft,
@@ -161,6 +161,9 @@ class _PostCardState extends State<PostCard> {
                         children: [
                           Text(
                             widget.snap['username'],
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 208, 220, 253),
+                            ),
                           ),
                         ],
                       ),
@@ -188,6 +191,7 @@ class _PostCardState extends State<PostCard> {
                   },
                   icon: const Icon(
                     Icons.info_outline_rounded,
+                    color: Color.fromARGB(255, 208, 220, 253),
                   ),
                 ),
               ],
@@ -256,7 +260,7 @@ class _PostCardState extends State<PostCard> {
                         )
                       : const Icon(
                           Icons.favorite_outline,
-                          color: Color.fromRGBO(225, 232, 252, 1),
+                          color: mobileBackgroundColor,
                         ),
                 ),
               ),
@@ -273,7 +277,7 @@ class _PostCardState extends State<PostCard> {
                 ),
                 icon: const Icon(
                   Icons.comment_outlined,
-                  color: Color.fromRGBO(225, 232, 252, 1),
+                  color: mobileBackgroundColor,
                 ),
               ),
               Expanded(
@@ -289,13 +293,11 @@ class _PostCardState extends State<PostCard> {
                       showSnackbar(res, context);
                     },
                     icon: isPostSaved
-                        ? const Icon(
-                            Icons.bookmark,
-                            color: Color.fromRGBO(225, 232, 252, 1),
-                          )
+                        ? const Icon(Icons.bookmark,
+                            color: mobileBackgroundColor)
                         : const Icon(
                             Icons.bookmark_border,
-                            color: Color.fromRGBO(225, 232, 252, 1),
+                            color: mobileBackgroundColor,
                           ),
                   ),
                 ),
@@ -312,7 +314,7 @@ class _PostCardState extends State<PostCard> {
               children: [
                 Text(
                   (widget.snap['likes']?.length ?? 0).toString() + ' likes',
-                  style: TextStyle(color: Color.fromARGB(255, 174, 176, 243)),
+                  style: const TextStyle(color: Colors.black),
                 ),
                 Container(
                   width: double.infinity,
@@ -325,13 +327,14 @@ class _PostCardState extends State<PostCard> {
                         TextSpan(
                           text: widget.snap['username'],
                           style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: loginButtonColor),
+                            fontWeight: FontWeight.bold,
+                            color: mobileBackgroundColor,
+                          ),
                         ),
                         TextSpan(
                           text: ' ${widget.snap['description']}',
                           style: const TextStyle(
-                            color: Color.fromRGBO(225, 232, 252, 1),
+                            color: Color.fromRGBO(8, 5, 83, 1),
                           ),
                         )
                       ],
@@ -357,7 +360,7 @@ class _PostCardState extends State<PostCard> {
                               'View all ${commentLength} comments',
                               style: const TextStyle(
                                 fontSize: 16,
-                                color: Colors.grey,
+                                color: Colors.black54,
                               ),
                             ),
                           )
@@ -370,7 +373,9 @@ class _PostCardState extends State<PostCard> {
                     DateFormat.yMMMd().format(
                       widget.snap['datePublished'].toDate(),
                     ),
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ],

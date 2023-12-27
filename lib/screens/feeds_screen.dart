@@ -22,7 +22,7 @@ class _FeedsScreenState extends State<FeedsScreen> {
         leading: IconButton(
           icon: const Icon(
             Icons.menu,
-            color: Colors.white,
+            color: mobileBackgroundColor,
           ),
           onPressed: () {
             _scaffoldKey.currentState!.openDrawer();
@@ -30,11 +30,14 @@ class _FeedsScreenState extends State<FeedsScreen> {
         ),
         title: const Text(
           'TRIPINSIDER',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: mobileBackgroundColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        backgroundColor: mobileBackgroundColor,
+        backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
       ),
-      backgroundColor: mobileBackgroundColor,
+      backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
       drawer: Drawer(
         backgroundColor: const Color.fromARGB(255, 208, 220, 253),
         child: Column(
@@ -146,15 +149,40 @@ class _FeedsScreenState extends State<FeedsScreen> {
                   color: Colors.black,
                 ),
               ),
-              onTap: () async {
-                await AuthMethods().signOut();
-                if (context.mounted) {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );
-                }
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Log Out'),
+                      content: const Text('Are you sure you want to log out?'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () async {
+                            await AuthMethods().signOut();
+                            if (context.mounted) {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginScreen(),
+                                ),
+                              );
+                            }
+                          },
+                          child: const Text(
+                            'Log Out',
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
               },
             )
           ],

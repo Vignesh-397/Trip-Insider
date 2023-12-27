@@ -33,11 +33,55 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _usernameController.dispose();
   }
 
-  void selectImage() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
-    setState(() {
-      _image = img;
-    });
+  void selectImage(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: const Text(
+            'Profile Picture',
+            style: TextStyle(color: mobileBackgroundColor),
+          ),
+          children: [
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text(
+                'Take a photo',
+              ),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                Uint8List file = await pickImage(
+                  ImageSource.camera,
+                );
+                setState(() {
+                  _image = file;
+                });
+              },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Choose from gallery'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                Uint8List file = await pickImage(
+                  ImageSource.gallery,
+                );
+                setState(() {
+                  _image = file;
+                });
+              },
+            ),
+            SimpleDialogOption(
+              padding: const EdgeInsets.all(20),
+              child: const Text('Cancel'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
   }
 
   void signUpUser() async {
@@ -79,9 +123,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
       body: SafeArea(
           child: Center(
         child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.black,
+          ),
           height: 680,
           margin: const EdgeInsets.only(left: 15, right: 15),
-          color: Colors.black,
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
           width: double.infinity,
           child: Column(
@@ -110,7 +157,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     bottom: -10,
                     left: 80,
                     child: IconButton(
-                      onPressed: selectImage,
+                      onPressed: () {
+                        selectImage(context);
+                      },
                       icon: const Icon(
                         Icons.add_a_photo,
                         color: Color.fromRGBO(207, 208, 239, 1),
@@ -156,7 +205,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 24,
               ),
               InkWell(
-                onTap: signUpUser,
+                onTap: () {
+                  if (isEmptyInfo()) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Invalid Inputs'),
+                          content: const Text('Please fill in all the fields.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    signUpUser();
+                  }
+                },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -213,5 +284,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       )),
     );
+  }
+
+  bool isEmptyInfo() {
+    return _usernameController.text.isEmpty ||
+        _emailController.text.isEmpty ||
+        _bioController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _image == null;
   }
 }

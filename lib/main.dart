@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tripinsider/providers/user_provider.dart';
+import 'package:tripinsider/screens/flash_screen.dart';
 import 'package:tripinsider/screens/login_screen.dart';
 import 'package:tripinsider/screens/navigation.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -50,9 +51,7 @@ class MyApp extends StatelessWidget {
               }
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return const FlashScreen();
             }
 
             return const LoginScreen();
