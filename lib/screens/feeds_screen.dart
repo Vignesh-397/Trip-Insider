@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tripinsider/resources/auth_methods.dart';
+import 'package:tripinsider/screens/hotels/hotels_screen.dart';
 import 'package:tripinsider/screens/login_screen.dart';
 import 'package:tripinsider/utils/colorsScheme.dart';
 import 'package:tripinsider/widgets/post_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FeedsScreen extends StatefulWidget {
   const FeedsScreen({super.key});
@@ -28,14 +30,26 @@ class _FeedsScreenState extends State<FeedsScreen> {
             _scaffoldKey.currentState!.openDrawer();
           },
         ),
-        title: const Text(
+        title: Text(
           'TRIPINSIDER',
-          style: TextStyle(
+          style: GoogleFonts.pacifico(
             color: mobileBackgroundColor,
             fontWeight: FontWeight.bold,
           ),
+          // style: TextStyle(
+          //   color: mobileBackgroundColor,
+          //   fontWeight: FontWeight.bold,
+          // ),
         ),
         backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => HotelListScreen()),
+          );
+        },
+        child: const Icon(Icons.hotel),
       ),
       backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
       drawer: Drawer(
@@ -73,6 +87,24 @@ class _FeedsScreenState extends State<FeedsScreen> {
                   ],
                 ),
               ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.hotel,
+                size: 26,
+                color: Colors.black,
+              ),
+              title: const Text(
+                'Hotels',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.black,
+                ),
+              ),
+              onTap: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => HotelListScreen()));
+              },
             ),
             ListTile(
               leading: const Icon(
@@ -131,7 +163,36 @@ class _FeedsScreenState extends State<FeedsScreen> {
                   color: Colors.black,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
+                      title: const Text(
+                        'Contact Us',
+                        style: TextStyle(
+                            color: mobileBackgroundColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      content: const Text(
+                        'contact us @ tripinsider@gmail.com',
+                        style: TextStyle(
+                          color: mobileBackgroundColor,
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
             ),
             Expanded(
               child: Container(), // Spacer to push Log Out to the bottom

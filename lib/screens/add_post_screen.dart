@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:tripinsider/models/user.dart';
@@ -171,10 +172,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
               Icons.clear,
               color: mobileBackgroundColor,
             )),
-        title: const Text(
+        title: Text(
           'TRIPINSIDER',
-          style: TextStyle(
-              color: mobileBackgroundColor, fontWeight: FontWeight.bold),
+          style: GoogleFonts.pacifico(
+            color: mobileBackgroundColor,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: _isUploading

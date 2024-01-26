@@ -2,8 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tripinsider/resources/auth_methods.dart';
 import 'package:tripinsider/resources/firestore_methods.dart';
+import 'package:tripinsider/screens/followers_screen.dart';
+import 'package:tripinsider/screens/following_screen.dart';
 import 'package:tripinsider/screens/login_screen.dart';
 import 'package:tripinsider/screens/saved_posts_screen.dart';
 import 'package:tripinsider/utils/colorsScheme.dart';
@@ -104,9 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               backgroundColor: const Color.fromRGBO(225, 232, 252, 1),
               title: Text(
                 userData['username'],
-                style: const TextStyle(
-                  color: mobileBackgroundColor,
-                ),
+                style: GoogleFonts.pacifico(color: mobileBackgroundColor),
               ),
               centerTitle: false,
               automaticallyImplyLeading: false,
@@ -176,32 +177,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     buildStatColumn(postLen, 'posts'),
                                     InkWell(
                                       onTap: () {
-                                        // showModalBottomSheet(
-                                        //   useSafeArea: true,
-                                        //   isScrollControlled: true,
-                                        //   context: context,
-                                        //   builder: (ctx) {
-                                        //     return FollowersScreen(
-                                        //       uid: widget.uid,
-                                        //     );
-                                        //   },
-                                        // );
+                                        showModalBottomSheet(
+                                          useSafeArea: true,
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (ctx) {
+                                            return FollowersScreen(
+                                              uid: widget.uid,
+                                            );
+                                          },
+                                        );
                                       },
                                       child: buildStatColumn(
                                           followers, 'followers'),
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        // showModalBottomSheet(
-                                        //   useSafeArea: true,
-                                        //   isScrollControlled: true,
-                                        //   context: context,
-                                        //   builder: (ctx) {
-                                        //     return FollowingScreen(
-                                        //       uid: widget.uid,
-                                        //     );
-                                        //   },
-                                        // );
+                                        showModalBottomSheet(
+                                          useSafeArea: true,
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (ctx) {
+                                            return FollowingScreen(
+                                              uid: widget.uid,
+                                            );
+                                          },
+                                        );
                                       },
                                       child: buildStatColumn(
                                           following, 'following'),
